@@ -74,7 +74,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(45deg, var(--electric-blue), var(--neon-blue));
+            background: var(--electric-blue); /* Сплошной цвет для иконки */
             border-radius: 8px;
             color: white;
             font-weight: bold;
@@ -83,7 +83,7 @@
         .logo-text {
             font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue));
+            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue)); /* Градиент для текста */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-left: 10px;
@@ -339,6 +339,43 @@
                 transform: none;
             }
         }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .stat-card {
+                padding: 20px 15px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+                margin-bottom: 5px;
+            }
+
+            .stats-section .section-title {
+                margin-bottom: 30px;
+            }
+
+            .stat-card p {
+                margin-top: 5px;
+                line-height: 1.4;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -348,7 +385,7 @@
             <div class="logo">
                 <div class="logo-icon">ДМС</div>
                 <div class="logo-text">ДетекторМС</div>
-            </div>
+              </div>
             <nav>
                 <!-- Навигация может быть добавлена позже -->
             </nav>
@@ -401,19 +438,19 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">99.9%</div>
-                    <p>Точность детекции</p>
+                    <p style="font-size: clamp(14px, 3vw, 18px);">Точность детекции</p>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">100мс</div>
-                    <p>Скорость реакции</p>
+                    <p style="font-size: clamp(14px, 3vw, 18px);">Скорость реакции</p>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">24/7</div>
-                    <p>Работа без остановки</p>
+                    <p style="font-size: clamp(14px, 3vw, 18px);">Работа без остановки</p>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">60</div>
-                    <p>Кадров в секунду</p>
+                    <p style="font-size: clamp(14px, 3vw, 18px);">Кадров в секунду</p>
                 </div>
             </div>
         </div>
