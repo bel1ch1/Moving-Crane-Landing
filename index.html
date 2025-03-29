@@ -3,26 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VisionCrane - Система детекции положения крана</title>
+    <title>ДетекторМС - Машинное обучение для мониторинга кранов</title>
     <style>
         :root {
-            --primary: #ff0000;
-            --secondary: #000000;
-            --text: #ffffff;
-            --text-secondary: #cccccc;
+            /* Основная палитра */
+            --deep-blue: #0A2463;
+            --electric-blue: #3E92CC;
+            --neon-blue: #00F5FF;
+            --signal-red: #FF0033;
+            --quantum-purple: #9D00FF;
+
+            /* Фоны */
+            --dark-space: #121317;
+            --light-graphite: #F0F2F5;
+
+            /* Текст */
+            --text-dark: #121317;
+            --text-light: #FFFFFF;
+            --text-muted: #A0A3BD;
+
+            /* Эффекты */
+            --glow-effect: 0 0 15px rgba(0, 245, 255, 0.5);
+            --fast-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background-color: var(--secondary);
-            color: var(--text);
-            line-height: 1.6;
+            background-color: var(--light-graphite);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Шапка */
+        header {
+            padding: 20px 0;
+            background-color: var(--dark-space);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(62, 146, 204, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            font-size: 16px;
+            line-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--electric-blue), var(--neon-blue));
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 10px;
+        }
+
+        /* Герой-секция */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--quantum-purple) 100%);
+            color: var(--text-light);
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 15s infinite linear;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero-title span {
+            background: linear-gradient(to right, var(--neon-blue), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            max-width: 700px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        /* Секции */
+        .section {
+            padding: 100px 0;
         }
 
         .container {
@@ -31,246 +154,328 @@
             padding: 0 20px;
         }
 
-        /* Header */
-        header {
-            padding: 20px 0;
-            border-bottom: 1px solid var(--primary);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://example.com/crane-bg.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 20px;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            color: var(--text-secondary);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--text);
-            padding: 15px 30px;
-            font-size: 18px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-weight: bold;
-        }
-
-        .cta-button:hover {
-            background-color: #cc0000;
-            transform: translateY(-3px);
-        }
-
-        /* Features */
-        .features {
-            padding: 80px 0;
-        }
-
         .section-title {
+            font-size: 38px;
+            margin-bottom: 60px;
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: var(--primary);
+            position: relative;
         }
 
-        .features-grid {
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue));
+        }
+
+        /* Анимированные карточки */
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        .feature-card {
-            background-color: #111111;
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
             padding: 30px;
-            border-radius: 5px;
-            border-top: 3px solid var(--primary);
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        /* How it works */
-        .how-it-works {
-            padding: 80px 0;
-            background-color: #111111;
-        }
-
-        .steps {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(62, 146, 204, 0.1);
             position: relative;
+            overflow: hidden;
+            will-change: transform;
         }
 
-        .step-number {
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--electric-blue));
+            transition: all 0.3s ease;
+        }
+
+        .card-content {
+            max-height: 200px;
+            transition: max-height 0.4s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover .card-content {
+            max-height: 500px;
+        }
+
+        .card-icon {
             width: 50px;
             height: 50px;
-            background-color: var(--primary);
-            color: var(--text);
-            border-radius: 50%;
+            background: linear-gradient(45deg, var(--electric-blue), var(--neon-blue));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 80px 0;
-            text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://example.com/cta-bg.jpg');
-            background-size: cover;
-        }
-
-        .cta-section h2 {
-            font-size: 36px;
             margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
         }
 
-        /* Footer */
-        footer {
-            padding: 30px 0;
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--deep-blue);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover h3 {
+            color: var(--neon-blue);
+        }
+
+        .card p {
+            opacity: 0.9;
+            transform: translateY(10px);
+            transition: all 0.4s ease 0.1s;
+        }
+
+        .card:hover p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Секция с цифрами */
+        .stats-section {
+            background-color: var(--dark-space);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
             text-align: center;
-            border-top: 1px solid var(--primary);
-            color: var(--text-secondary);
+            padding: 30px;
         }
 
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--fast-transition);
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--signal-red), #FF0066);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 0, 51, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 51, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 245, 255, 0.1);
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--dark-space);
+            color: var(--text-muted);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(62, 146, 204, 0.2);
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .hero h1 {
+            .hero-title {
                 font-size: 36px;
             }
 
-            .hero p {
-                font-size: 18px;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .steps {
-                flex-direction: column;
+            .card-content {
+                max-height: none;
             }
 
-            .step {
-                margin-bottom: 30px;
+            .card p {
+                opacity: 1;
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Шапка -->
     <header>
-        <div class="container header-content">
-            <div class="logo">VisionCrane</div>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">ДМС</div>
+                <div class="logo-text">ДетекторМС</div>
+            </div>
             <nav>
-                <!-- Здесь могут быть навигационные ссылки -->
+                <!-- Навигация может быть добавлена позже -->
             </nav>
         </div>
     </header>
 
+    <!-- Герой-секция -->
     <section class="hero">
-        <div class="container">
-            <h1>Точный контроль положения крана</h1>
-            <p>Инновационная система технического зрения для автоматической детекции и анализа положения крана на вашем предприятии</p>
-            <a href="#order" class="cta-button">Заказать сейчас</a>
+        <div class="hero-content">
+            <h1 class="hero-title">Машинное обучение для <span>мониторинга кранов</span></h1>
+            <p class="hero-subtitle">Точность 99.9% и скорость анализа 60 кадров/сек. Инновационное решение для получения точного положения крана на предприятии.</p>
+            <a href="#demo" class="btn btn-primary">Страница товара</a>
         </div>
     </section>
 
-    <section class="features">
+    <!-- Преимущества -->
+    <section class="section">
         <div class="container">
-            <h2 class="section-title">Преимущества нашей системы</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Высокая точность</h3>
-                    <p>Точность определения положения до ±1 мм благодаря передовым алгоритмам компьютерного зрения.</p>
+            <h2 class="section-title">Почему ДетекторМС?</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-content">
+                        <h3>Молниеносная скорость</h3>
+                        <p>Анализ данных в реальном времени с задержкой менее 100 мс. Оперативное реагирование на изменения положения.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <h3>Работа в реальном времени</h3>
-                    <p>Анализ данных с частотой 60 кадров в секунду без задержек.</p>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h3>Невероятная точность</h3>
+                        <p>Погрешность определения положения всего 0.5 мм благодаря технологиям фидуциарных маркеров и машинного обучения.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <h3>Простота интеграции</h3>
-                    <p>Совместимость с большинством промышленных систем управления.</p>
+                <div class="card">
+                    <div class="card-icon">📡</div>
+                    <div class="card-content">
+                        <h3>Передача данных на любые устройства</h3>
+                        <p>Устройство способно передавать данные по Modbus TCP на различные устройства, ПЛК и промышленные системы управления.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="how-it-works">
+    <!-- Статистика -->
+    <section class="section stats-section">
         <div class="container">
-            <h2 class="section-title">Как это работает</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Установка камер</h3>
-                    <p>Монтаж высокоточных камер в оптимальных точках предприятия.</p>
+            <h2 class="section-title" style="color: white;">ДетекторМС в цифрах</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <p>Точность детекции</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Калибровка системы</h3>
-                    <p>Настройка системы под параметры вашего оборудования.</p>
+                <div class="stat-card">
+                    <div class="stat-number">100мс</div>
+                    <p>Скорость реакции</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Анализ данных</h3>
-                    <p>Непрерывный мониторинг и анализ положения крана.</p>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <p>Работа без остановки</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Интеграция с системой управления</h3>
-                    <p>Передача данных в вашу систему управления предприятием.</p>
+                <div class="stat-card">
+                    <div class="stat-number">60</div>
+                    <p>Кадров в секунду</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-section" id="order">
+    <!-- Как это работает -->
+    <section class="section" style="background-color: #f8f9fa;">
         <div class="container">
-            <h2>Готовы повысить безопасность и эффективность?</h2>
-            <p>Оставьте заявку и наш специалист свяжется с вами для консультации</p>
-            <a href="https://your-sales-page.com" class="cta-button">Перейти к покупке</a>
+            <h2 class="section-title">Принцип работы</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">1</div>
+                    <div class="card-content">
+                        <h3>Детекция маркеров</h3>
+                        <p>Устройство, размещенная на кране, ищет маркеры с помощью машинного обучения.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">2</div>
+                    <div class="card-content">
+                        <h3>Анализ положения</h3>
+                        <p>Программа обрабатывает найденные маркеры, после чего рассчитывает положение крана.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">3</div>
+                    <div class="card-content">
+                        <h3>Передача данных</h3>
+                        <p>Данные о положении крана передаются по Modbus на системы управления предприятием.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- CTA -->
+    <section class="section" style="padding: 80px 0; background: linear-gradient(135deg, var(--deep-blue) 0%, var(--quantum-purple) 100%);">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white; font-size: 36px; margin-bottom: 30px;">Готовы внедрить инновации?</h2>
+            <p style="color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 0 auto 40px; font-size: 18px;">
+                Оставьте заявку и наши специалисты подготовят индивидуальное решение для вашего предприятия
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+                <a href="#features" class="btn btn-outline">Узнать подробнее</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
     <footer>
         <div class="container">
-            <p>© 2025 VisionCrane. Все права защищены.</p>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+                    <div class="logo-icon">ДМС</div>
+                    <div class="logo-text">ДетекторМС</div>
+                </div>
+                <p style="max-width: 600px; margin: 0 auto;">Инновационная система мониторинга промышленного оборудования на основе машинного обучения</p>
+            </div>
+            <div style="text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <p>© 2025 ДетекторМС. Все права защищены.</p>
+            </div>
         </div>
     </footer>
 </body>
