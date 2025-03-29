@@ -74,7 +74,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--electric-blue); /* Сплошной цвет для иконки */
+            background: var(--electric-blue);
             border-radius: 8px;
             color: white;
             font-weight: bold;
@@ -83,7 +83,7 @@
         .logo-text {
             font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue)); /* Градиент для текста */
+            background: linear-gradient(to right, var(--neon-blue), var(--electric-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-left: 10px;
@@ -252,6 +252,76 @@
             transform: translateY(0);
         }
 
+        /* Стили для раздела об устройстве */
+        .device-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .device-features {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+        }
+
+        .device-image {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 3px solid var(--electric-blue);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: var(--deep-blue);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover h3 {
+            color: var(--electric-blue);
+        }
+
+        .feature-card p {
+            opacity: 0.9;
+            transform: translateY(5px);
+            transition: all 0.3s ease 0.1s;
+        }
+
+        .feature-card:hover p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    /* Адаптация */
+    @media (max-width: 768px) {
+        .device-container {
+            flex-direction: column;
+        }
+
+        .device-features {
+            max-width: 100%;
+        }
+
+        .device-image {
+            width: 100%;
+            padding: 0;
+            margin-top: 30px;
+        }
+    }
+
         /* Секция с цифрами */
         .stats-section {
             background-color: var(--dark-space);
@@ -338,38 +408,15 @@
                 opacity: 1;
                 transform: none;
             }
-        }
 
-        /* Мобильная адаптация */
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            .stat-card {
-                padding: 20px 15px;
-            }
-
-            .stat-number {
-                font-size: 32px;
-                margin-bottom: 5px;
-            }
-
-            .stats-section .section-title {
-                margin-bottom: 30px;
-            }
-
-            .stat-card p {
-                margin-top: 5px;
-                line-height: 1.4;
+            .device-container {
+                flex-direction: column;
             }
         }
 
         @media (max-width: 480px) {
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
             }
 
             .stat-number {
@@ -385,7 +432,7 @@
             <div class="logo">
                 <div class="logo-icon">ДМС</div>
                 <div class="logo-text">ДетекторМС</div>
-              </div>
+            </div>
             <nav>
                 <!-- Навигация может быть добавлена позже -->
             </nav>
@@ -400,6 +447,52 @@
             <a href="#demo" class="btn btn-primary">Страница товара</a>
         </div>
     </section>
+
+    <!-- Раздел об устройстве -->
+    <section class="section device-section" style="background-color: #ffffff; padding: 80px 0;">
+        <div class="container">
+            <h2 class="section-title">Компактное интеллектуальное устройство</h2>
+
+            <div class="device-container">
+                <!-- Левая часть - карточки -->
+                <div class="device-features">
+                    <div class="feature-card card">
+                        <div class="card-icon">💻</div>
+                        <div class="card-content">
+                            <h3>Миникомпьютер в защищённом корпусе</h3>
+                            <p>Прочный алюминиевый корпус с защитой IP67 от вибраций, пыли и влаги</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card card">
+                        <div class="card-icon">📷</div>
+                        <div class="card-content">
+                            <h3>Камера высокого разрешения</h3>
+                            <p>4K/60fps для точного распознавания маркеров</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card card">
+                        <div class="card-icon">🧠</div>
+                        <div class="card-content">
+                            <h3>Программное обеспечение</h3>
+                            <p>AI алгоритмы для расчёта положения по фидуциарным маркерам</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Правая часть - изображение -->
+                <div class="device-image">
+                    <div class="image-placeholder" style="background-color: #f0f2f5; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+                        <span style="color: var(--text-muted);">Изображение устройства</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Разделитель -->
+    <div class="section-divider" style="height: 1px; background: linear-gradient(to right, transparent, var(--electric-blue), transparent); margin: 40px 0;"></div>
 
     <!-- Преимущества -->
     <section class="section">
@@ -465,7 +558,7 @@
                     <div class="card-icon">1</div>
                     <div class="card-content">
                         <h3>Детекция маркеров</h3>
-                        <p>Устройство, размещенная на кране, ищет маркеры с помощью машинного обучения.</p>
+                        <p>Камера высокого разрешения, размещенная на кране, ищет маркеры с помощью машинного обучения.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -511,7 +604,7 @@
                 <p style="max-width: 600px; margin: 0 auto;">Инновационная система мониторинга промышленного оборудования на основе машинного обучения</p>
             </div>
             <div style="text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                <p>© 2025 ДетекторМС. Все права защищены.</p>
+                <p>© 2023 ДетекторМС. Все права защищены.</p>
             </div>
         </div>
     </footer>
